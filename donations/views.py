@@ -157,7 +157,7 @@ def get_paypal_access_token():
     try:
         auth = base64.b64encode(f"{settings.PAYPAL_CLIENT_ID}:{settings.PAYPAL_CLIENT_SECRET}".encode()).decode()
         
-        url = 'https://api-m.sandbox.paypal.com/v1/oauth2/token'
+        url = f"{settings.PAYPAL_API_BASE}/v1/oauth2/token"
         
         response = requests.post(
             url,
@@ -206,7 +206,7 @@ def create_paypal_order(request):
                 logger.error("Failed to get PayPal access token")
                 return JsonResponse({'error': 'Could not authenticate with PayPal'}, status=400)
             
-            url = 'https://api-m.sandbox.paypal.com/v2/checkout/orders'
+            url = f"{settings.PAYPAL_API_BASE}/v2/checkout/orders"
             
             payload = {
                 "intent": "CAPTURE",
@@ -304,7 +304,7 @@ def paypal_success(request):
             return redirect('/')
         
         # Capture the PayPal order
-        url = f'https://api-m.sandbox.paypal.com/v2/checkout/orders/{order_id}/capture'
+        url = f"{settings.PAYPAL_API_BASE}/v2/checkout/orders/{order_id}/capture"
         
         response = requests.post(
             url,
