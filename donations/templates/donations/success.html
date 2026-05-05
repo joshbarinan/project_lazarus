@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Success | Project Lazarus</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <main style="padding: 48px; font-family: Arial, sans-serif; max-width: 800px; margin: auto;">
+        <h1>Thank you for your donation</h1>
+        <p>Your payment via {{ payment_method }} was received successfully.</p>
+        <ul>
+            <li><strong>Donor:</strong> {{ donation.donor_name }}</li>
+            <li><strong>Amount:</strong> ₱{{ donation.amount }}</li>
+            <li><strong>Total raised:</strong> ₱{{ total_raised }}</li>
+        </ul>
+        {% if is_first_donor %}
+            <p><strong>This is the first paid donation!</strong></p>
+        {% endif %}
+        <p><a href="/">Return to home</a></p>
+    </main>
+</body>
+</html>
