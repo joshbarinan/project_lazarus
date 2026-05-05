@@ -6,20 +6,181 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donation Success | Project Lazarus</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f7f3ec;
+            color: #1f1b17;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        a {
+            color: #4d6a52;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .success-shell {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .success-card {
+            width: min(100%, 900px);
+            background: #ffffff;
+            border: 1px solid rgba(26, 22, 20, 0.08);
+            border-radius: 32px;
+            box-shadow: 0 30px 80px rgba(26, 22, 20, 0.09);
+            padding: 40px;
+        }
+
+        .success-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            background: rgba(122, 158, 138, 0.15);
+            color: #4d6a52;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .success-title {
+            margin: 0 0 18px;
+            font-size: clamp(2rem, 3vw, 3rem);
+            line-height: 1.05;
+            letter-spacing: -0.025em;
+        }
+
+        .success-copy {
+            max-width: 720px;
+            margin: 0 0 32px;
+            font-size: 1rem;
+            line-height: 1.85;
+            color: #5f5750;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .detail-panel {
+            background: #f7f3ec;
+            border: 1px solid rgba(122, 158, 138, 0.18);
+            border-radius: 22px;
+            padding: 26px 28px;
+        }
+
+        .detail-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #7a9e8a;
+        }
+
+        .detail-value {
+            margin: 0;
+            font-size: 1.55rem;
+            line-height: 1.05;
+            font-weight: 800;
+            color: #22201c;
+        }
+
+        .detail-note {
+            margin-top: 14px;
+            font-size: 0.95rem;
+            color: #6b655c;
+            line-height: 1.75;
+        }
+
+        .success-actions {
+            margin-top: 34px;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            border: none;
+            border-radius: 999px;
+            padding: 14px 24px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-primary {
+            background: #4d6a52;
+            color: #ffffff;
+        }
+
+        .button-secondary {
+            background: transparent;
+            border: 1px solid rgba(122, 158, 138, 0.45);
+            color: #4d6a52;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 28px rgba(26, 22, 20, 0.08);
+        }
+
+        @media (max-width: 720px) {
+            .success-card { padding: 28px; }
+            .detail-grid { grid-template-columns: 1fr; }
+            .success-actions { flex-direction: column; }
+        }
+    </style>
 </head>
 <body>
-    <main style="padding: 48px; font-family: Arial, sans-serif; max-width: 800px; margin: auto;">
-        <h1>Thank you for your donation</h1>
-        <p>Your payment via {{ payment_method }} was received successfully.</p>
-        <ul>
-            <li><strong>Donor:</strong> {{ donation.donor_name }}</li>
-            <li><strong>Amount:</strong> ₱{{ donation.amount }}</li>
-            <li><strong>Total raised:</strong> ₱{{ total_raised }}</li>
-        </ul>
-        {% if is_first_donor %}
-            <p><strong>This is the first paid donation!</strong></p>
-        {% endif %}
-        <p><a href="/">Return to home</a></p>
+    <main class="success-shell">
+        <article class="success-card">
+            <span class="success-badge">Payment confirmed</span>
+            <h1 class="success-title">Your donation is now part of Project Lazarus.</h1>
+            <p class="success-copy">Thanks for supporting this story-driven project. Your contribution fuels development and keeps the mission moving forward with clarity and purpose.</p>
+
+            <div class="detail-grid">
+                <div class="detail-panel">
+                    <span class="detail-label">Donation amount</span>
+                    <p class="detail-value">₱{{ donation.amount }}</p>
+                    <p class="detail-note">Paid through {{ payment_method }}.</p>
+                </div>
+                <div class="detail-panel">
+                    <span class="detail-label">Total raised</span>
+                    <p class="detail-value">₱{{ total_raised }}</p>
+                    {% if is_first_donor %}
+                    <p class="detail-note">This is the first paid donation — a milestone moment.</p>
+                    {% else %}
+                    <p class="detail-note">Every amount helps bring the next phase closer.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="success-actions">
+                <a href="/" class="button button-secondary">Return to homepage</a>
+                <a href="javascript:window.location.reload()" class="button button-primary">Refresh status</a>
+            </div>
+        </article>
     </main>
 </body>
 </html>

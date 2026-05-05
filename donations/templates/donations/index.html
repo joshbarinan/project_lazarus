@@ -893,6 +893,26 @@
         }
 
         /* QR modal */
+        .qr-card {
+            width: 100%;
+            max-width: 340px;
+            height: 460px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-soft);
+            margin: 0 auto;
+        }
+
+        .qr-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+        }
+
         .qr-info-box {
             background: var(--cream);
             border: 1px solid var(--border);
@@ -1337,25 +1357,10 @@
                 <div style="text-align:center; padding:8px 0 16px;">
 
                     <!-- QR Container (clean + centered + responsive) -->
-                    <div style="
-                        display:inline-block;
-                        background:white;
-                        padding:20px;
-                        border-radius:20px;
-                        border:1px solid var(--border);
-                        box-shadow:var(--shadow-soft);
-                        max-width:340px;
-                        width:100%;
-                    ">
-
+                    <div class="qr-card">
                         <img src="{% static 'images/qrph_code.jpg' %}"
                             alt="QRPh Payment QR Code"
-                            style="
-                                width:100%;
-                                height:auto;
-                                display:block;
-                                border-radius:12px;
-                            "
+                            class="qr-image"
                             onerror="
                                 this.style.display='none';
                                 document.getElementById('qrPlaceholder').style.display='flex';
